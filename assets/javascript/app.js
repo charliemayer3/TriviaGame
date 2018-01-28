@@ -8,11 +8,11 @@ var questionArray = [{
 }, {
 	question: "What is the worst show?",
 	choices: ["show 11", "show 52", "show 83", "show 24"],
-	answer: "show 1",
+	answer: "show 83",
 }, {
 	question: "What is the funniest show?",
 	choices: ["show 1", "show 2", "show 3", "show 444"],
-	answer: "show 1",
+	answer: "show 444",
 }];
 
 var questionCount = 0;
@@ -25,13 +25,35 @@ $(".startButton").on("click", function() {
   	if(questionCount < questionArray.length) {
   		askQuestion();
 
-  		function nextQuestion() {
+  		function correctNextQuestion() {
+  			stop();
+	  		correctAnswers++;
   			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
   			questionCount++;
-  			console.log(questionCount)
-  			setTimeout(askQuestion, 5000);
-  			timeRemaining = 30;
+  			if(questionCount === questionArray.length) {
+  				setTimeout(gameOver, 1000)
+  			}
+  			else {
+  				setTimeout(askQuestion, 1000);
+  				console.log(questionCount);
+  				// timeRemaining = 30;
+  			}
   		}
+
+  		function wrongNextQuestion() {
+  			stop();
+  			wrongAnswers++;
+  			$(".mainSection").html("<h2>You Were Wrong!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			questionCount++;
+  			if(questionCount === questionArray.length) {
+  				setTimeout(gameOver, 1000)
+  			}
+  			else {
+  				setTimeout(askQuestion, 1000);  				
+  				console.log(questionCount);
+  				// timeRemaining = 30;
+  			}
+  		}  		
 
   		function createHTML() {
   			$(".mainSection").html("<div class='timeRemaining'></div>" + "<div class='question'></div>" + "<div class='answers'>" + '<p id="answerClick" class="0"></p>' + '<p id="answerClick" class="1"></p>' + '<p id="answerClick" class="2"></p>' + '<p id="answerClick" class="3"></p>' + "</div>")
@@ -47,52 +69,49 @@ $(".startButton").on("click", function() {
 	  		$(".1").html(questionArray[questionCount].choices[1]);
 	  		$(".2").html(questionArray[questionCount].choices[2]);
 	  		$(".3").html(questionArray[questionCount].choices[3]);
+	  		// $("p").hover(function() {
+  			// 	$(this).addClass('red');
+  			// })
 	  		$("p").click(function() {
 	  			var selectedAnswer = $(this).html();
 	  			if(selectedAnswer === questionArray[questionCount].answer) {
-	  				nextQuestion();
+	  				correctNextQuestion();
 	  				// alert("yay");
-	  				correctAnswers++;
+	  				console.log(correctAnswers)
 	  			}
 	  			else {
-	  				alert("boo");
-	  				wrongAnswers++;
+	  				wrongNextQuestion();
+	  				console.log(wrongAnswers)
 	  			}
 	  		})
   		}
 
-  	} else {
-  		gameOver ()
+
+	  	function gameOver() {
+	  		$(".mainSection").html("<div class='gameOver'>GAME OVER!!</div>" + "<div class='correctAnswers'>Correct Answers: " + correctAnswers + "</div>" + "<div class='wrongAnswers'>Incorrect Answers: " + wrongAnswers + "</div>")
+	  	}
+
   	}
 
+function countdown() {
+	  		timeRemaining--;
+	  		$(".timeRemaining").html(timeRemaining);
 
-
-  	function countdown() {
-  		timeRemaining--;
-  		$(".timeRemaining").html(timeRemaining);
-
-	  	if (timeRemaining === 0) {
-	  		alert("TIME'S UP");
-  		}
-  	}
-
-
-	// for(var i = 0; i < questionArray.length; i++) {
- //  		$(".question").html(questionArray[i].question);
- //  		console.log([i])
- //  		console.log(questionArray[i].choices[0])
- //  		}
-
-
-  	// for (var i = 0; i < questions.length; i++) {
-   //    panel.append('<h2>' + questions[i].question + '</h2>');
-   //    for (var j = 0; j < questions[i].choices.length; j++){
-   //      panel.append('<input type="radio" name ="question' + '-' + i + '"value="' + questions[i].choices[j] + '">' + questions[i].choices[j]);
-   //      }
-  	// 	}
-  	// 	panel.append("<button id='done'>DONE</button>");
-      
-
+		  	if (timeRemaining === 0) {
+		  		stop();
+		  		wrongAnswers++;
+	  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='http://ak7.picdn.net/shutterstock/videos/5175527/thumb/1.jpg'>")
+	  			questionCount++;
+	  			if(questionCount === questionArray.length) {
+	  				setTimeout(gameOver, 1000)
+	  			}
+	  			else {
+	  				setTimeout(askQuestion, 1000);
+	  				console.log(questionCount);
+	  				timeRemaining = 30;
+	  			}
+	  		}
+}
 
 })
 //have an on click even for a start button to start the game
