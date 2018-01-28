@@ -19,30 +19,62 @@ var questionCount = 0;
 //create an array with answer objects inside of it
 $(".startButton").on("click", function() {
 	$(".startButton").remove();
-  	timer = setInterval(timeRemaining, 1000);
-  	timeRemaining--;
-  	$(".timeRemaining").html(timer);
+  	timer = setInterval(countdown, 1000);
+  	// timeRemaining--;
+  	// $(".timeRemaining").html(timer);
   	if(questionCount < questionArray.length) {
-  		$(".question").html(questionArray[questionCount].question);
-  		console.log(questionArray[questionCount].question);
-  		$(".0").html(questionArray[questionCount].choices[0]);
-  		$(".1").html(questionArray[questionCount].choices[1]);
-  		$(".2").html(questionArray[questionCount].choices[2]);
-  		$(".3").html(questionArray[questionCount].choices[3]);
-  		$("p").click(function() {
-  			var selectedAnswer = $(this).html();
-  			if(selectedAnswer === questionArray[questionCount].answer) {
-  				alert("yay");
-  			}
-  			else {
-  				alert("boo");
-  			}
-  		})
+  		askQuestion();
+
+  		function nextQuestion() {
+  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			questionCount++;
+  			console.log(questionCount)
+  			setTimeout(askQuestion, 5000);
+  			timeRemaining = 30;
+  		}
+
+  		function createHTML() {
+  			$(".mainSection").html("<div class='timeRemaining'></div>" + "<div class='question'></div>" + "<div class='answers'>" + '<p id="answerClick" class="0"></p>' + '<p id="answerClick" class="1"></p>' + '<p id="answerClick" class="2"></p>' + '<p id="answerClick" class="3"></p>' + "</div>")
+  		}
+
+  		function askQuestion() {
+  			timeRemaining = 30;
+  			countdown();
+  			createHTML();
+	  		$(".question").html(questionArray[questionCount].question);
+	  		console.log(questionArray[questionCount].question);
+	  		$(".0").html(questionArray[questionCount].choices[0]);
+	  		$(".1").html(questionArray[questionCount].choices[1]);
+	  		$(".2").html(questionArray[questionCount].choices[2]);
+	  		$(".3").html(questionArray[questionCount].choices[3]);
+	  		$("p").click(function() {
+	  			var selectedAnswer = $(this).html();
+	  			if(selectedAnswer === questionArray[questionCount].answer) {
+	  				nextQuestion();
+	  				// alert("yay");
+	  				correctAnswers++;
+	  			}
+	  			else {
+	  				alert("boo");
+	  				wrongAnswers++;
+	  			}
+	  		})
+  		}
+
   	} else {
   		gameOver ()
   	}
 
 
+
+  	function countdown() {
+  		timeRemaining--;
+  		$(".timeRemaining").html(timeRemaining);
+
+	  	if (timeRemaining === 0) {
+	  		alert("TIME'S UP");
+  		}
+  	}
 
 
 	// for(var i = 0; i < questionArray.length; i++) {
