@@ -25,36 +25,6 @@ $(".startButton").on("click", function() {
   	if(questionCount < questionArray.length) {
   		askQuestion();
 
-  		function correctNextQuestion() {
-  			stop();
-	  		correctAnswers++;
-  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
-  			questionCount++;
-  			if(questionCount === questionArray.length) {
-  				setTimeout(gameOver, 1000)
-  			}
-  			else {
-  				setTimeout(askQuestion, 1000);
-  				console.log(questionCount);
-  				// timeRemaining = 30;
-  			}
-  		}
-
-  		function wrongNextQuestion() {
-  			stop();
-  			wrongAnswers++;
-  			$(".mainSection").html("<h2>You Were Wrong!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
-  			questionCount++;
-  			if(questionCount === questionArray.length) {
-  				setTimeout(gameOver, 1000)
-  			}
-  			else {
-  				setTimeout(askQuestion, 1000);  				
-  				console.log(questionCount);
-  				// timeRemaining = 30;
-  			}
-  		}  		
-
   		function createHTML() {
   			$(".mainSection").html("<div class='timeRemaining'></div>" + "<div class='question'></div>" + "<div class='answers'>" + '<p id="answerClick" class="0"></p>' + '<p id="answerClick" class="1"></p>' + '<p id="answerClick" class="2"></p>' + '<p id="answerClick" class="3"></p>' + "</div>")
   		}
@@ -64,54 +34,67 @@ $(".startButton").on("click", function() {
   			countdown();
   			createHTML();
 	  		$(".question").html(questionArray[questionCount].question);
-	  		console.log(questionArray[questionCount].question);
 	  		$(".0").html(questionArray[questionCount].choices[0]);
 	  		$(".1").html(questionArray[questionCount].choices[1]);
 	  		$(".2").html(questionArray[questionCount].choices[2]);
 	  		$(".3").html(questionArray[questionCount].choices[3]);
-	  		// $("p").hover(function() {
-  			// 	$(this).addClass('red');
-  			// })
 	  		$("p").click(function() {
 	  			var selectedAnswer = $(this).html();
 	  			if(selectedAnswer === questionArray[questionCount].answer) {
 	  				correctNextQuestion();
-	  				// alert("yay");
-	  				console.log(correctAnswers)
 	  			}
 	  			else {
 	  				wrongNextQuestion();
-	  				console.log(wrongAnswers)
 	  			}
 	  		})
   		}
 
+  		function correctNextQuestion() {
+	  		correctAnswers++;
+  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			questionCount++;
+  			if(questionCount === questionArray.length) {
+  				setTimeout(gameOver, 1000)
+  			}
+  			else {
+  				setTimeout(askQuestion, 1000);
+  			}
+  		}
+
+  		function wrongNextQuestion() {
+  			wrongAnswers++;
+  			$(".mainSection").html("<h2>You Were Wrong!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			questionCount++;
+  			if(questionCount === questionArray.length) {
+  				setTimeout(gameOver, 1000)
+  			}
+  			else {
+  				setTimeout(askQuestion, 1000);  				
+  			}
+  		}  		
 
 	  	function gameOver() {
-	  		$(".mainSection").html("<div class='gameOver'>GAME OVER!!</div>" + "<div class='correctAnswers'>Correct Answers: " + correctAnswers + "</div>" + "<div class='wrongAnswers'>Incorrect Answers: " + wrongAnswers + "</div>")
+	  		$(".mainSection").html("<div class='gameOver'>GAME OVER!!</div><br>" + "<div class='correctAnswers'>Correct Answers: " + correctAnswers + "</div><br>" + "<div class='wrongAnswers'>Incorrect Answers: " + wrongAnswers + "</div>")
 	  	}
 
   	}
 
-function countdown() {
-	  		timeRemaining--;
-	  		$(".timeRemaining").html(timeRemaining);
+	function countdown() {
+		  		timeRemaining--;
+		  		$(".timeRemaining").html("Time Remaining: " + timeRemaining + "<br></br>");
 
-		  	if (timeRemaining === 0) {
-		  		stop();
-		  		wrongAnswers++;
-	  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='http://ak7.picdn.net/shutterstock/videos/5175527/thumb/1.jpg'>")
-	  			questionCount++;
-	  			if(questionCount === questionArray.length) {
-	  				setTimeout(gameOver, 1000)
-	  			}
-	  			else {
-	  				setTimeout(askQuestion, 1000);
-	  				console.log(questionCount);
-	  				timeRemaining = 30;
-	  			}
-	  		}
-}
+			  	if(timeRemaining === 0) {
+			  		wrongAnswers++;
+		  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='http://ak7.picdn.net/shutterstock/videos/5175527/thumb/1.jpg'>")
+		  			questionCount++;
+		  			if(questionCount === questionArray.length) {
+		  				setTimeout(gameOver, 1000)
+		  			}
+		  			else {
+		  				setTimeout(askQuestion, 1000);
+		  			}
+		  		}
+	}
 
 })
 //have an on click even for a start button to start the game

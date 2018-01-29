@@ -1,5 +1,11 @@
 body {
+	background-image: url("../images/seinfeld-wallpapers.jpg");
 	text-align: center;
+}
+
+h1 {
+	font-size: 48px;
+	padding: 40px;
 }
 
 #container {
@@ -7,6 +13,26 @@ body {
 	margin: 0 auto;
 }
 
+.startButton {
+	padding: 20px;
+	background-color: red;
+	margin-top: 50px;
+	font-size: 24px;
+	color: white;
+}
+
+.timeRemaining {
+	font-size: 24px;
+}
+
+.question {
+	font-size: 24px;
+}
+
 p:hover { 
     background-color: lightgray;
+}
+
+p {
+	font-size: 36px;
 }
