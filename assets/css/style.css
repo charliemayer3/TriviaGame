@@ -15,10 +15,10 @@ h1 {
 
 .startButton {
 	padding: 20px;
-	background-color: red;
+	background-color: lightblue;
 	margin-top: 50px;
 	font-size: 24px;
-	color: white;
+	color: brown;
 }
 
 .timeRemaining {
@@ -36,3 +36,15 @@ p:hover {
 p {
 	font-size: 36px;
 }
+
+.gameOver {
+	font-size: 48px;
+}
+
+.correctAnswers, .wrongAnswers {
+	font-size: 36px;
+}
+
+/*.answerPicture {
+	border: 1px solid black;
+}*/

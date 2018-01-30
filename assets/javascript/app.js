@@ -1,18 +1,54 @@
-var timeRemaining = 30;
+var timeRemaining = 21;
 var correctAnswers = 0;
 var wrongAnswers = 0;
 var questionArray = [{
-	question: "What is the best show?",
-	choices: ["show 1", "show 2", "show 3", "show 4"],
-	answer: "show 1",
+	question: "What year did Seinfeld Debut?",
+	choices: ["1988", "1989", "1990", "1991"],
+	answer: "1989",
+	picture: "<img src='assets/images/episode1.jpg'/>",
+	sound: "assets/sounds/theme.mp3",
 }, {
-	question: "What is the worst show?",
-	choices: ["show 11", "show 52", "show 83", "show 24"],
-	answer: "show 83",
+	question: "When Kramer received the personalized license plates of a proctologist by mistake, what did they read?",
+	choices: ["Assman", "ButtDoc", "AssMD", "Rearend"],
+	answer: "Assman",
+	picture: "<img src='assets/images/assman.jpg'/>",
+	sound: "assets/sounds/assman.wav",
 }, {
-	question: "What is the funniest show?",
-	choices: ["show 1", "show 2", "show 3", "show 444"],
-	answer: "show 444",
+	question: "What was the name of the group's regular lawyer?",
+	choices: ["Jackie Chiles", "Russell Dalrymple", "J Peterman", "Joe Davola"],
+	answer: "Jackie Chiles",
+	picture: "<img src='assets/images/jackie.jpg'/>",
+	sound: "assets/sounds/chiles_real.wav"
+}, {
+	question: "What did Jerry and George keep pretending to say as Jerry's girlfriend Claire's stomach, leading Jerry to choose 'the voice,' over her?",
+	choices: ["I'm hungry", "Hello", "Goodbye", "You're Welcome"],
+	answer: "Hello",
+	picture: "<img src='assets/images/Z0kG7_f-thumbnail-100-0_s-600x0.jpg'/>",
+	sound: "assets/sounds/hello3.wav",
+}, {
+	question: "What was the job of Jerry's nemisis neighbor Newman?",
+	choices: ["Meter Maid", "Airline Desk Clerk", "Police Officer", "Postal Worker"],
+	answer: "Postal Worker",
+	picture: "<img src='assets/images/newman.jpg'/>",
+	sound: "assets/sounds/newman2.wav",
+}, {
+	question: "Who won 'The Contest'? (Even if they revealed later that they cheated.)",
+	choices: ["Jerry", "George", "Elaine", "Kramer"],
+	answer: "George",
+	picture: "<img src='assets/images/thecontest.png'/>",
+	sound: "assets/sounds/master_of_domain.wav",
+}, {
+	question: "How much did 'The Kramer' painting sell for to the elderly couple?",
+	choices: ["$500", "$1,000", "$10,000", "$5,000"],
+	answer: "$5,000",
+	picture: "<img src='assets/images/hqdefault.jpg'/>",
+	sound: "assets/sounds/brute.wav",
+}, {
+	question: "What kind of 'talker' did the group never describe someone as?",
+	choices: ["A Low Talker", "A High Talker", "A Far Talker", "A Close Talker"],
+	answer: "A Far Talker",
+	picture: "<img src='assets/images/elaine.jpg'/>",
+	sound: "assets/sounds/talkers.wav",
 }];
 
 var questionCount = 0;
@@ -30,9 +66,9 @@ $(".startButton").on("click", function() {
   		}
 
   		function askQuestion() {
-  			timeRemaining = 30;
-  			countdown();
+  			timeRemaining = 21;
   			createHTML();
+  			countdown();
 	  		$(".question").html(questionArray[questionCount].question);
 	  		$(".0").html(questionArray[questionCount].choices[0]);
 	  		$(".1").html(questionArray[questionCount].choices[1]);
@@ -51,30 +87,46 @@ $(".startButton").on("click", function() {
 
   		function correctNextQuestion() {
 	  		correctAnswers++;
-  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
+  			document.getElementById("sound").src = questionArray[questionCount].sound;
+  			$("#sound").trigger("play");
   			questionCount++;
   			if(questionCount === questionArray.length) {
-  				setTimeout(gameOver, 1000)
+  				setTimeout(gameOver, 5000)
   			}
   			else {
-  				setTimeout(askQuestion, 1000);
+  				setTimeout(askQuestion, 5000);
   			}
   		}
 
   		function wrongNextQuestion() {
   			wrongAnswers++;
-  			$(".mainSection").html("<h2>You Were Wrong!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='https://asheathersworldturns.files.wordpress.com/2015/09/seinfeld-saying-newman-meme-1432838940.jpg?w=640'>")
+  			$(".mainSection").html("<h2>You Were Wrong!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
+  			document.getElementById("sound").src='assets/sounds/no_soup.wav';
+  			$("#sound").trigger("play");
   			questionCount++;
   			if(questionCount === questionArray.length) {
-  				setTimeout(gameOver, 1000)
+  				setTimeout(gameOver, 4000)
   			}
   			else {
-  				setTimeout(askQuestion, 1000);  				
+  				setTimeout(askQuestion, 4000);  				
   			}
   		}  		
 
 	  	function gameOver() {
-	  		$(".mainSection").html("<div class='gameOver'>GAME OVER!!</div><br>" + "<div class='correctAnswers'>Correct Answers: " + correctAnswers + "</div><br>" + "<div class='wrongAnswers'>Incorrect Answers: " + wrongAnswers + "</div>")
+	  		$(".mainSection").html("<div class='gameOver'>GAME OVER!!</div><br>" + "<div class='correctAnswers'>Correct Answers: " + correctAnswers + "</div><br>" + "<div class='wrongAnswers'>Incorrect Answers: " + wrongAnswers + "</div><br><br>" + "<div><button class='reset'>Reset Game!</button></div>");
+	  	}
+
+	  	$(".reset").on("click", function() {
+	  		resetGame();
+	  	})
+
+	  	function resetGame() {
+	  		timeRemaining = 21;
+			correctAnswers = 0;
+			wrongAnswers = 0;
+			questionCount = 0;
+			askQuestion();
 	  	}
 
   	}
@@ -85,13 +137,15 @@ $(".startButton").on("click", function() {
 
 			  	if(timeRemaining === 0) {
 			  		wrongAnswers++;
-		  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<img src='http://ak7.picdn.net/shutterstock/videos/5175527/thumb/1.jpg'>")
+		  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
+		  			document.getElementById("sound").src='assets/sounds/how_hard.wav';
+  					$("#sound").trigger("play");
 		  			questionCount++;
 		  			if(questionCount === questionArray.length) {
-		  				setTimeout(gameOver, 1000)
+		  				setTimeout(gameOver, 4000)
 		  			}
 		  			else {
-		  				setTimeout(askQuestion, 1000);
+		  				setTimeout(askQuestion, 4000);
 		  			}
 		  		}
 	}
