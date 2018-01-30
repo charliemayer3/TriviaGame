@@ -52,12 +52,9 @@ var questionArray = [{
 }];
 
 var questionCount = 0;
-//create an array with answer objects inside of it
 $(".startButton").on("click", function() {
 	$(".startButton").remove();
-  	timer = setInterval(countdown, 1000);
-  	// timeRemaining--;
-  	// $(".timeRemaining").html(timer);
+	var timer = setInterval(countdown, 1000);
   	if(questionCount < questionArray.length) {
   		askQuestion();
 
@@ -75,6 +72,7 @@ $(".startButton").on("click", function() {
 	  		$(".2").html(questionArray[questionCount].choices[2]);
 	  		$(".3").html(questionArray[questionCount].choices[3]);
 	  		$("p").click(function() {
+	  			timeRemaining = 21;
 	  			var selectedAnswer = $(this).html();
 	  			if(selectedAnswer === questionArray[questionCount].answer) {
 	  				correctNextQuestion();
@@ -131,27 +129,28 @@ $(".startButton").on("click", function() {
 
   	}
 
-	function countdown() {
-		  		timeRemaining--;
-		  		$(".timeRemaining").html("Time Remaining: " + timeRemaining + "<br></br>");
-
-			  	if(timeRemaining === 0) {
-			  		wrongAnswers++;
-		  			$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
-		  			document.getElementById("sound").src='assets/sounds/how_hard.wav';
-  					$("#sound").trigger("play");
-		  			questionCount++;
-		  			timeRemaining = 21;
-		  			if(questionCount === questionArray.length) {
-		  				setTimeout(gameOver, 4000)
-		  			}
-		  			else {
-		  				setTimeout(askQuestion, 4000);
-		  			}
-		  		}
+  	function countdown() {
+	  	timeRemaining--;
+	  	$(".timeRemaining").html("Time Remaining: " + timeRemaining + "<br></br>");
+	  	if(timeRemaining === 0) {
+		  	wrongAnswers++;
+	  		$(".mainSection").html("<h2>Time's Up!! The correct answer was " + questionArray[questionCount].answer + ".</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
+		  	document.getElementById("sound").src='assets/sounds/how_hard.wav';
+  			$("#sound").trigger("play");
+	  		questionCount++;
+		  	if(questionCount === questionArray.length) {
+			  	setTimeout(gameOver, 4000)
+			}
+			else {
+		  		setTimeout(askQuestion, 4000);
+			}
+		}	  		
 	}
 
 })
+
+//create an array with answer objects inside of it
+
 //have an on click even for a start button to start the game
 
 //have a for loop that grabs the questions and answer key from the array
