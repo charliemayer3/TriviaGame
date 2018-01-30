@@ -85,7 +85,7 @@ $(".startButton").on("click", function() {
 
   		function correctNextQuestion() {
 	  		correctAnswers++;
-  			$(".mainSection").html("<h2>'You Were Right!!'</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
+  			$(".mainSection").html("<h2>You Were Right!!</h2>" + "<div class='answerPicture'>" + questionArray[questionCount].picture + "</div>")
   			document.getElementById("sound").src = questionArray[questionCount].sound;
   			$("#sound").trigger("play");
   			questionCount++;
@@ -116,16 +116,17 @@ $(".startButton").on("click", function() {
 	  	}
 
 	  	$(".reset").on("click", function() {
-	  		resetGame();
+	  		reload()
+	  		// resetGame();
 	  	})
 
-	  	function resetGame() {
-	  		timeRemaining = 21;
-			correctAnswers = 0;
-			wrongAnswers = 0;
-			questionCount = 0;
-			askQuestion();
-	  	}
+	  // 	function resetGame() {
+	  // 		timeRemaining = 21;
+			// correctAnswers = 0;
+			// wrongAnswers = 0;
+			// questionCount = 0;
+			// askQuestion();
+	  // 	}
 
   	}
 
