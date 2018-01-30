@@ -12,4 +12,6 @@ You also would get a third screen if you run out of time.
 
 At the end of the eight questions, the game will tally up your score.
 
+If you are a Seinfeld fan, you'll want to have your volume on!
+
 Enjoy, and good luck!
