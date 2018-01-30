@@ -141,6 +141,7 @@ $(".startButton").on("click", function() {
 		  			document.getElementById("sound").src='assets/sounds/how_hard.wav';
   					$("#sound").trigger("play");
 		  			questionCount++;
+		  			timeRemaining = 21;
 		  			if(questionCount === questionArray.length) {
 		  				setTimeout(gameOver, 4000)
 		  			}
